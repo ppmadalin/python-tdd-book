@@ -3,15 +3,12 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
-from dotenv import load_dotenv
 
 import time
 import os
 
 MAX_WAIT = 10
 
-# Load Environment
-load_dotenv(verbose=True)
 
 class NewVisitorTest(StaticLiveServerTestCase):
 

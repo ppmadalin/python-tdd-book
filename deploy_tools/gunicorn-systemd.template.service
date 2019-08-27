@@ -1,0 +1,15 @@
+[Unit]
+Description=Gunicorn server for superlists-staging.madalinpopa.com
+
+[Service]
+Restart=on-failure
+User=madalin
+WorkingDirectory=/home/madalin/sites/superlists-staging.madalinpopa.com
+EnvironmentFile=/home/madalin/sites/superlists-staging.madalinpopa.com/.env
+
+ExecStart=/home/madalin/sites/superlists-staging.madalinpopa.com/virtualenv/bin/gunicorn \
+	--bind unix:/tmp/superlists-staging.madalinpopa.com.socket \
+	superlists.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

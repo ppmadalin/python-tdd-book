@@ -32,7 +32,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
             except (AssertionError, WebDriverException) as e:
                 if time.time() - start_time > MAX_WAIT:
                     raise e
-                time.sleep(5)
+                time.sleep(0.5)
 
     def test_layout_and_styling(self):
         # Edith goes to the home page

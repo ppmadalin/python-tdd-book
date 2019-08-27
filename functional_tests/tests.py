@@ -7,7 +7,7 @@ from selenium.common.exceptions import WebDriverException
 import time
 import os
 
-MAX_WAIT = 20
+MAX_WAIT = 10
 
 
 class NewVisitorTest(StaticLiveServerTestCase):
@@ -32,7 +32,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
             except (AssertionError, WebDriverException) as e:
                 if time.time() - start_time > MAX_WAIT:
                     raise e
-                time.sleep(0.5)
+                time.sleep(5)
 
     def test_layout_and_styling(self):
         # Edith goes to the home page

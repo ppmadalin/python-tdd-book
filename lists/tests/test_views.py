@@ -1,6 +1,7 @@
 from django.urls import resolve
 from django.test import TestCase
 from django.http import HttpRequest
+from django.utils.html import escape
 
 from lists.views import home_page
 from lists.models import Item, List
@@ -41,6 +42,20 @@ class ListViewTest(TestCase):
 
 
 class NewListTest(TestCase):
+
+    def test_validation_errors_are_sent_back_to_home_page_template(self):
+        response = self.client.post('/lists/new', data={'item_text': ''})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'lists/home.html')
+        expected_error = escape("You can't have an empty list item")
+        self.assertContains(response, expected_error)
+
+    def test_invalid_list_items_arent_saved(self):
+        self.client.post('/lists/new', data={'item_text': ''})
+        self.assertEqual(List.objects.count(), 0)
+        self.assertEqual(Item.objects.count(), 0)
+
+
     def test_can_save_a_POST_request(self):
         response = self.client.post("/lists/new", data={"item_text": "A new list item"})
         self.assertEqual(Item.objects.count(), 1)

@@ -89,6 +89,7 @@ class NewListTest(TestCase):
     def test_invalid_list_items_arent_saved(self):
         list_ = List.objects.create()
         self.client.post('/lists/new', data={'item_text': ''})
+        list_.delete()
         self.assertEqual(List.objects.count(), 0)
         self.assertEqual(Item.objects.count(), 0)
 
